@@ -3,15 +3,22 @@ import { createSlice } from "@reduxjs/toolkit";
 const videoSlice = createSlice(
     {name:"videos",
     initialState:{
-        popular:[],
+        videos:{},
     },
     reducers:{
         addPopularVideos:(state,action)=>{
-            state.popular = action.payload;
+            let videos = {};
+            action.payload.forEach(element => {
+                videos[element.id] = element;
+            });
+            state.videos = videos;
+        },
+        addVideo:(state,action)=>{
+            state.videos[action.payload.id] = action.payload.data;
         }
     }
 }
 )
 
-export const {addPopularVideos} = videoSlice.actions;
+export const {addPopularVideos,addVideo} = videoSlice.actions;
 export default videoSlice.reducer;

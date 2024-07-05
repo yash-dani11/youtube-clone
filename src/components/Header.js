@@ -4,6 +4,7 @@ import HAMBURGER from "../assets/hamburger.svg";
 import SEARCH from "../assets/search.svg"
 import { useDispatch } from "react-redux";
 import { toggleSideBar } from "../redux/sidebarSlice";
+import { Link } from "react-router-dom";
 const Header = () => {
     const dispatch = useDispatch();
     const viewSideBar = ()=>{
@@ -15,7 +16,7 @@ const Header = () => {
         <button>
           <img src={HAMBURGER} alt="Menu" onClick={viewSideBar}></img>
         </button>
-        <img src={LOGO} alt="Youtube" className="w-24 h-5 ml-4"></img>
+        <Link to="/"><img src={LOGO} alt="Youtube" className="w-24 h-5 ml-4"></img></Link>
       </div>
       <div className="rounded-2xl border border-gray-400 flex col-span-10 mx-auto w-1/2">
         <input type="text" placeholder="Search" className="rounded-2xl p-1 px-3 w-[90%] rounded-tr-none rounded-br-none"></input>

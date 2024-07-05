@@ -1,15 +1,15 @@
 import { useEffect } from 'react'
-import { API_OPTIONS, VIDEOS_ENDPOINT } from '../utils/constants';
+import { API_OPTIONS, POPULAR_VIDEOS_ENDPOINT } from '../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPopularVideos } from '../redux/videoSlice';
 
 const usePopularVideos = () => {
     const dispatch = useDispatch();
-    const popularVideos = useSelector(store=>store.videos?.popular);
+    const popularVideos = useSelector(store=>store.videos?.videos);
   useEffect(()=>{
     const fetchVideos = async()=>{
         try {
-            const response = await fetch(VIDEOS_ENDPOINT,API_OPTIONS);
+            const response = await fetch(POPULAR_VIDEOS_ENDPOINT,API_OPTIONS);
         if(!response.ok){
             throw new Error("Unable to fetch Videos");
         }

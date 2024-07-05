@@ -13,7 +13,7 @@ const appRouter = createBrowserRouter([{
     element:<Homepage></Homepage>
   },
   {
-    path:"/watch/:id",
+    path:"/watch/",
     element:<Player></Player>
   }
 ]
