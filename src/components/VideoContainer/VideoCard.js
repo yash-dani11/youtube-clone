@@ -1,16 +1,15 @@
 import React from "react";
-import { getTimeString, numberFormatter } from "../utils/formatter";
+import { getTimeString, numberFormatter } from "../../utils/formatter";
 import { Link } from "react-router-dom";
-import MORE_ICON from "../assets/more.svg";
+import MORE_ICON from "../../assets/more.svg";
 
-const VideoCard = ({ details }) => {
+const VideoCard = React.forwardRef(({ details },ref) => {
   const { snippet, statistics, id } = details;
   const timeString = getTimeString(snippet.publishedAt);
   const viewCount = numberFormatter(statistics?.viewCount);
-  console.log(snippet?.thumbnails);
   return (
     <Link to={`/watch?v=${id}`} className="cursor-pointer">
-      <div className="m-1 mb-2 w-80">
+      <div className="w-80 ml-5 mb-5" ref={ref}>
         <img
           src={snippet?.thumbnails?.
             medium?.url}
@@ -36,6 +35,6 @@ const VideoCard = ({ details }) => {
       </div>
     </Link>
   );
-};
+})
 
 export default VideoCard;

@@ -1,36 +1,64 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
-import { EMBED_VIDEO_ENDPOINT, WHATSAPP_SHARE_ENDPOINT } from "../utils/constants";
+import React, { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { EMBED_VIDEO_ENDPOINT } from "../utils/constants";
 import { useSelector } from "react-redux";
-import useComments from "../hooks/useComments";
-import Comment from "./Comment";
 import ChannelInfo from "./ChannelInfo";
 import Description from "./Description";
 import useVideo from "../hooks/useVideo";
+import RelatedVideoContainer from "./Related/RelatedVideoContainer";
+import CommentsContainer from "./Comments/CommentsContainer";
 const Player = () => {
-  const id = new URLSearchParams(useLocation().search).get("v");
-  const videoInfo = useSelector((state) => state.videos.videos?.[id]);
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("v");
+  const videoInfo = useSelector((state) => state.videos.videos?.all?.[id]);
+  const viewSideBar = useSelector((state) => state.sidebar?.view);
   useVideo(id);
   const likeCount = videoInfo?.statistics?.likeCount;
   const channelId = videoInfo?.snippet?.channelId;
-  useComments(id);
-  const commentsList = useSelector(state=>state.comments?.videoComments?.[id]);
-  const comments = commentsList?.map(comment=><Comment details = {comment} key={comment.id}></Comment>)
-  
+  const marginLeft = viewSideBar ? "ml-64" : "sm:mx-6";
+  useEffect(() => {
+    if (videoInfo?.snippet?.title) {
+      document.title = videoInfo?.snippet?.title;
+    }
+  }, [videoInfo?.snippet?.title]);
   return (
-    <>{videoInfo && <div className="m-6">
-    <iframe
-      className="w-2/3 aspect-video rounded-xl"
-      src={`${EMBED_VIDEO_ENDPOINT}${id}?autoplay=1&mute=1`}
-      title="YouTube video player"
-      allowFullScreen
-    ></iframe>
-    <div className="font-bold text-xl w-2/3 mt-2">{videoInfo?.snippet?.title}</div>
-    <div className="mt-4 w-2/3"><ChannelInfo channelId={channelId} likeCount={likeCount}></ChannelInfo>
-    <div className="mt-4"><Description age={videoInfo?.snippet?.publishedAt} viewCount={videoInfo?.statistics.viewCount} description={videoInfo?.snippet?.description}></Description></div>
-    </div>
-    <div className="mt-10 w-2/3">{comments}</div>
-  </div>}</>
+    <>
+      {videoInfo && (
+        <div className="block sm:grid sm:grid-cols-3 mt-20">
+          <div className={`${marginLeft} col-span-2`}>
+            <iframe
+              className="w-full aspect-video sm:rounded-xl"
+              src={`${EMBED_VIDEO_ENDPOINT}${id}?autoplay=1&mute=1`}
+              title="YouTube video player"
+              allowFullScreen
+            ></iframe>
+            <div className="mx-6 sm:mx-0">
+              <div className="font-bold text-xl mt-2">
+                {videoInfo?.snippet?.title}
+              </div>
+              <div className="mt-4 ">
+                <ChannelInfo
+                  channelId={channelId}
+                  likeCount={likeCount}
+                ></ChannelInfo>
+                <div className="mt-4">
+                  <Description
+                    age={videoInfo?.snippet?.publishedAt}
+                    viewCount={videoInfo?.statistics.viewCount}
+                    description={videoInfo?.snippet?.description}
+                  ></Description>
+                </div>
+              </div>
+              <CommentsContainer></CommentsContainer>
+            </div>
+            
+          </div>
+          <div className="col-span-1">
+              <RelatedVideoContainer></RelatedVideoContainer>
+            </div>
+        </div>
+      )}
+    </>
   );
 };
 

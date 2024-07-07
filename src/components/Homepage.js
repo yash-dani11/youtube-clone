@@ -1,15 +1,19 @@
-import React from 'react'
-import Sidebar from './Sidebar'
-import MainContainer from './MainContainer'
-import ButtonsList from './ButtonsList'
+import React, { useEffect } from "react";
+import MainContainer from "./MainContainer";
+
+import { collapseSideBar, viewSideBar } from "../redux/sidebarSlice";
+import { useDispatch } from "react-redux";
 
 const Homepage = () => {
-  return (
-    <div className='flex space-around'>
-    <Sidebar></Sidebar>
-    <MainContainer></MainContainer>
-    </div>
-  )
-}
+  const dispatch = useDispatch();
+  useEffect(() => {
+    document.cookie = "Youtube";
+    dispatch(viewSideBar());
+    return () => {
+      dispatch(collapseSideBar());
+    };
+  }, []);
+  return <MainContainer></MainContainer>;
+};
 
-export default Homepage
+export default Homepage;

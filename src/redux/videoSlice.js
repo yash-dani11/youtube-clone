@@ -3,22 +3,45 @@ import { createSlice } from "@reduxjs/toolkit";
 const videoSlice = createSlice(
     {name:"videos",
     initialState:{
-        videos:{},
+        videos:{
+            all:{}
+        },
+        related:{
+            videos:{}
+        },
     },
     reducers:{
         addPopularVideos:(state,action)=>{
-            let videos = {};
-            action.payload.forEach(element => {
-                videos[element.id] = element;
+            const {data,nextPageToken} = action.payload;
+            data.forEach(element => {
+                state.videos.all[element.id] = element;
             });
-            state.videos = videos;
+            state.videos.token = nextPageToken;
         },
         addVideo:(state,action)=>{
-            state.videos[action.payload.id] = action.payload.data;
+            const {data,id} = action.payload;
+            if(!state.videos.all){
+                state.videos.all = {};
+            }
+            state.videos.all[id] = data;
+        },
+        addRelatedVideos:(state,action)=>{
+            const {nextPageToken,id,data} = action.payload;
+            if(!state.related.videos[id]){
+                state.related.videos[id] = {};
+            }
+            data.forEach(element => {
+                const relatedVideoId = element.id?.videoId;
+                if(relatedVideoId){
+                    state.related.videos[id][relatedVideoId] = element;
+                }
+                
+            });
+            state.related.token = nextPageToken;
         }
     }
 }
 )
 
-export const {addPopularVideos,addVideo} = videoSlice.actions;
+export const {addPopularVideos,addVideo,addRelatedVideos} = videoSlice.actions;
 export default videoSlice.reducer;

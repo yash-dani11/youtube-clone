@@ -11,9 +11,9 @@ const Header = () => {
         dispatch(toggleSideBar());
     }
   return (
-    <div className="grid grid-flow-col p-4 shadow-lg">
+    <div className="grid grid-flow-col p-4 pt-2 h-14 fixed w-full top-0 left-0 bg-white">
       <div className="flex items-center col-span-1">
-        <button>
+        <button className="hidden sm:block">
           <img src={HAMBURGER} alt="Menu" onClick={viewSideBar}></img>
         </button>
         <Link to="/"><img src={LOGO} alt="Youtube" className="w-24 h-5 ml-4"></img></Link>

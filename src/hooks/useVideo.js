@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addVideo } from "../redux/videoSlice";
 const useVideo = (id) => {
   const dispatch = useDispatch();
-  const allVideos = useSelector((store) => store.videos?.videos);
-  const requestedVideo = allVideos[id];
+  const allVideos = useSelector((store) => store.videos?.videos?.all);
+  const requestedVideo = allVideos?.[id];
   useEffect(() => {
     const fetchVideos = async () => {
       try {

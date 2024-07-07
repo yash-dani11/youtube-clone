@@ -19,7 +19,7 @@ const ChannelInfo = ({ channelId,likeCount }) => {
   
 
   return (
-    <div className="flex items-cente justify-between">
+    <div className="flex items-center justify-between flex-col sm:flex-row">
       <div className="flex items-center"><div className="mr-3">
         <img
           src={snippet?.thumbnails?.high?.url}
@@ -33,12 +33,12 @@ const ChannelInfo = ({ channelId,likeCount }) => {
           statistics?.subscriberCount
         )} subscribers`}</div>
       </div>
-      <div className="ml-10">
+      <div className="ml-4 sm:ml-10">
         <button className="bg-black text-white font-semibold text-xs rounded-3xl p-2.5 px-4">
           Subscribe
         </button>
       </div></div>
-      <div className="flex items-center text-gray-800 font-semibold justify-between text-sm">
+      <div className="flex items-center text-gray-800 font-semibold justify-between text-sm mt-6 sm:mt-0">
         <div className="bg-gray-100 p-2 py-1 rounded-3xl flex items-center h-9">
           <button>
             <div className="flex items-center">

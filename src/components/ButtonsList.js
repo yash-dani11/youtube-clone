@@ -3,9 +3,8 @@ import Button from './Button'
 import { VIDEO_CATEGORIES } from '../utils/constants'
 const ButtonsList = () => {
     const buttons = VIDEO_CATEGORIES.map((category,index)=><Button key={index}>{category}</Button>);
-    
   return (
-    <div className='flex'>{buttons}</div>
+    <div className='hidden sm:flex fixed bg-white w-full pt-2'>{buttons}</div>
   )
 }
 

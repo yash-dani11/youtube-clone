@@ -7,7 +7,7 @@ const Sidebar = () => {
   return (
     <>
       {sidebarVisible && (
-        <div className="p-5 shadow-lg w-48 h-screen">
+        <div className="hidden sm:block p-5 shadow-lg w-60 h-screen fixed">
             <div>
             <ul>
               <li>Home</li>

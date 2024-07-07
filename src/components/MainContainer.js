@@ -1,10 +1,10 @@
 import React from 'react'
 import ButtonsList from './ButtonsList'
-import VideoContainer from './VideoContainer'
+import VideoContainer from './VideoContainer/VideoContainer'
 
 const MainContainer = () => {
   return (
-    <div className='px-5 py-4'><ButtonsList></ButtonsList>
+    <div className='px-5 sm:ml-64'><ButtonsList></ButtonsList>
     <VideoContainer></VideoContainer>
     </div>
   )
