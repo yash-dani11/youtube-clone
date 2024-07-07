@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { EMBED_VIDEO_ENDPOINT } from "../utils/constants";
 import { useSelector } from "react-redux";
@@ -16,21 +16,25 @@ const Player = () => {
   const likeCount = videoInfo?.statistics?.likeCount;
   const channelId = videoInfo?.snippet?.channelId;
   const marginLeft = viewSideBar ? "ml-64" : "sm:mx-6";
+  const [isIframeLoading,setIsIframeLoading] = useState(true);
   useEffect(() => {
     if (videoInfo?.snippet?.title) {
       document.title = videoInfo?.snippet?.title;
     }
   }, [videoInfo?.snippet?.title]);
+
   return (
     <>
       {videoInfo && (
         <div className="block sm:grid sm:grid-cols-3 mt-20">
           <div className={`${marginLeft} col-span-2`}>
+            {isIframeLoading&&<div className="w-full aspect-video sm:rounded-xl bg-gray-200 animate-blink"></div>}
             <iframe
-              className="w-full aspect-video sm:rounded-xl"
+              className={`w-full aspect-video sm:rounded-xl ${isIframeLoading ? 'hidden' : 'block'}`}
               src={`${EMBED_VIDEO_ENDPOINT}${id}?autoplay=1&mute=1`}
               title="YouTube video player"
               allowFullScreen
+              onLoad={()=>{setIsIframeLoading(false)}}
             ></iframe>
             <div className="mx-6 sm:mx-0">
               <div className="font-bold text-xl mt-2">

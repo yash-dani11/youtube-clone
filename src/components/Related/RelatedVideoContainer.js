@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import fetchRelatedVideos from './fetchRelatedVideos';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import { addRelatedVideos } from '../../redux/videoSlice';
+import ShimmerRelated from './ShimmerRelated';
 const RelatedVideoContainer = () => {
     
 const [searchParams]=useSearchParams();
@@ -15,7 +16,7 @@ const [searchParams]=useSearchParams();
     const queryString = title?.split(" ")[0];
     const videos = useSelector(state=>state.videos?.related);
     const related = videos?.videos[videoID];
-    const token = videos?.token;
+    const token = videos?.token; 
     const storeRelatedVideos = useCallback(async()=>{
       try {
         const data = await fetchRelatedVideos(videoID,queryString,token);
@@ -25,11 +26,14 @@ const [searchParams]=useSearchParams();
       }
     },[videoID,title,token])
     useInfiniteScroll(storeRelatedVideos,relatedRef,related)
-    if(!related){
-        return;
+    let relatedVideos = Array(20).fill(0).map((_,index)=><ShimmerRelated key={index}></ShimmerRelated>)
+    if(related){
+      const relatedList = Object.values(related);
+      relatedVideos = relatedList.map((video,index)=><RelatedCard data={video} key={video?.etag} ref={index===relatedList.length-4?relatedRef:null}></RelatedCard>)
     }
-    const relatedList = Object.values(related);
-    const relatedVideos = relatedList.map((video,index)=><RelatedCard data={video} key={video?.etag} ref={index===relatedList.length-4?relatedRef:null}></RelatedCard>)
+    
+    
+    
   return (
     <div className='w-full h-full hidden sm:flex flex-col m-2 ml-0.5'>
         {relatedVideos}
