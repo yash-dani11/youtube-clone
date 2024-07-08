@@ -20,7 +20,7 @@ const VideoContainer = () => {
     const cards = allVideos?.map((video,index)=><VideoCard key={video.id} details={video} ref={index===allVideos.length-4?cardRef:null}></VideoCard>)
     const shimmerList = Array(20).fill(0).map((_,index)=><Shimmer key={index}></Shimmer>) 
   return (
-    <div className='flex flex-wrap w-full pt-20'>{cards?.length?cards:shimmerList}</div>
+    <div className='flex flex-wrap w-full pt-8 sm:pt-20 justify-center'>{cards?.length?cards:shimmerList}</div>
   )
 }
 

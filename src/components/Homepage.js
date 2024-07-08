@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 const Homepage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    document.cookie = "Youtube";
+    document.title = "Youtube";
     dispatch(viewSideBar());
     return () => {
       dispatch(collapseSideBar());

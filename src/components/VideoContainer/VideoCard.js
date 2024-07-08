@@ -9,11 +9,11 @@ const VideoCard = React.forwardRef(({ details },ref) => {
   const viewCount = numberFormatter(statistics?.viewCount);
   return (
     <Link to={`/watch?v=${id}`} className="cursor-pointer">
-      <div className="w-80 ml-5 mb-5" ref={ref}>
+      <div className="w-screen sm:w-80 sm:ml-5 mb-8 sm:mb-5 sm:mx-0" ref={ref}>
         <img
           src={snippet?.thumbnails?.
             medium?.url}
-          className="rounded-2xl h-48 w-80 hover:rounded-none"
+          className="sm:rounded-2xl h-48 w-screen sm:w-80 hover:rounded-none"
           alt={snippet?.title}
         ></img>
         <div className="px-2">

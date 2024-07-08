@@ -5,6 +5,7 @@ import SEARCH from "../assets/search.svg"
 import { useDispatch } from "react-redux";
 import { toggleSideBar } from "../redux/sidebarSlice";
 import { Link } from "react-router-dom";
+import AVATAR from "../assets/avatar.jpg";
 const Header = () => {
     const dispatch = useDispatch();
     const viewSideBar = ()=>{
@@ -18,16 +19,16 @@ const Header = () => {
         </button>
         <Link to="/"><img src={LOGO} alt="Youtube" className="w-24 h-5 ml-4"></img></Link>
       </div>
-      <div className="rounded-2xl border border-gray-400 flex col-span-10 mx-auto w-1/2">
-        <input type="text" placeholder="Search" className="rounded-2xl p-1 px-3 w-[90%] rounded-tr-none rounded-br-none"></input>
-        <button className="rounded-2xl border-l border-gray-400 rounded-tl-none rounded-bl-none px-2 w-[10%] bg-gray-100">
+      <div className="rounded-3xl border border-gray-200 flex col-span-12 mx-auto w-1/2 h-10">
+        <input type="text" placeholder="Search" className="rounded-3xl p-1 px-4 w-[90%] rounded-tr-none rounded-br-none focus:outline-1"></input>
+        <button className="block rounded-3xl sm:border-l border-gray-200 rounded-tl-none rounded-bl-none px-5 bg-transparent sm:bg-gray-100">
             
-          <img src={SEARCH} alt="Search"></img>
+          <img src={SEARCH} alt="Search" className="h-6 w-6"></img>
         </button>
       </div>
-      <div className="col-span-1 flex items-center">
-        <button>Sign In</button>
-      </div>
+      
+        <img src={AVATAR} alt="User" className="w-8 h-8 rounded-full cursor-pointer col-span-1"></img>
+      
     </div>
   );
 };
