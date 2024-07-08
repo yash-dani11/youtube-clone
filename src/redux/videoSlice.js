@@ -9,6 +9,9 @@ const videoSlice = createSlice(
         related:{
             videos:{}
         },
+        search:{
+            videos:{}
+        }
     },
     reducers:{
         addPopularVideos:(state,action)=>{
@@ -38,10 +41,24 @@ const videoSlice = createSlice(
                 
             });
             state.related.token = nextPageToken;
+        },
+        addSearchedVideos:(state,action)=>{
+            const {nextPageToken,id,data} = action.payload;
+            if(!state.search.videos[id]){
+                state.search.videos[id] = {};
+            }
+            data.forEach(element => {
+                const searchId = element.id?.videoId;
+                if(searchId){
+                    state.search.videos[id][searchId] = element;
+                }
+                
+            });
+            state.related.token = nextPageToken;
         }
     }
 }
 )
 
-export const {addPopularVideos,addVideo,addRelatedVideos} = videoSlice.actions;
+export const {addPopularVideos,addVideo,addRelatedVideos,addSearchedVideos} = videoSlice.actions;
 export default videoSlice.reducer;

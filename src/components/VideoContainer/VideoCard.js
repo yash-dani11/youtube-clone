@@ -9,7 +9,7 @@ const VideoCard = React.forwardRef(({ details },ref) => {
   const viewCount = numberFormatter(statistics?.viewCount);
   return (
     <Link to={`/watch?v=${id}`} className="cursor-pointer">
-      <div className="w-screen sm:w-80 sm:ml-5 mb-8 sm:mb-5 sm:mx-0" ref={ref}>
+      <div className="w-screen sm:w-80 sm:ml-4 mb-8 sm:mb-5 sm:mx-0" ref={ref}>
         <img
           src={snippet?.thumbnails?.
             medium?.url}
