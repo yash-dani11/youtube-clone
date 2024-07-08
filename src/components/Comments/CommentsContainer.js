@@ -5,6 +5,7 @@ import { addComments } from "../../redux/commentsSlice";
 import fetchComments from "./fetchComments";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import Comment from "./Comment";
+import Shimmer from "./Shimmer";
 const CommentsContainer = () => {
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
@@ -30,7 +31,8 @@ const CommentsContainer = () => {
       index = {index}
     ></Comment>
   ));
-  return <div className="mt-10 mb-4">{comments}</div>;
+  const shimmerList = Array(20).fill(0).map((_,index)=><Shimmer key={index}></Shimmer>)
+  return <div className="mt-10 mb-4">{comments?.length?comments:shimmerList}</div>;
 };
 
 export default CommentsContainer;

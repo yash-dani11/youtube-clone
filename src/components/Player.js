@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { EMBED_VIDEO_ENDPOINT } from "../utils/constants";
 import { useSelector } from "react-redux";
-import ChannelInfo from "./ChannelInfo";
+import ChannelInfo from "./ChannelInfo/ChannelInfo";
 import Description from "./Description";
 import useVideo from "../hooks/useVideo";
 import RelatedVideoContainer from "./Related/RelatedVideoContainer";
@@ -25,7 +25,7 @@ const Player = () => {
 
   return (
     <>
-      {videoInfo && (
+      
         <div className="block sm:grid sm:grid-cols-3 mt-20">
           <div className={`${marginLeft} col-span-2`}>
             {isIframeLoading&&<div className="w-full aspect-video sm:rounded-xl bg-gray-200 animate-blink"></div>}
@@ -37,9 +37,9 @@ const Player = () => {
               onLoad={()=>{setIsIframeLoading(false)}}
             ></iframe>
             <div className="mx-6 sm:mx-0">
-              <div className="font-bold text-xl mt-2">
-                {videoInfo?.snippet?.title}
-              </div>
+            {videoInfo?.snippet?.title?<div className="font-bold text-xl mt-2">
+            {videoInfo?.snippet?.title}
+                </div>:<div className="mt-2 h-9 bg-gray-100 animate-blink w-1/2"></div>}
               <div className="mt-4 ">
                 <ChannelInfo
                   channelId={channelId}
@@ -61,7 +61,7 @@ const Player = () => {
               <RelatedVideoContainer></RelatedVideoContainer>
             </div>
         </div>
-      )}
+      
     </>
   );
 };

@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import fetchRelatedVideos from './fetchRelatedVideos';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import { addRelatedVideos } from '../../redux/videoSlice';
-import ShimmerRelated from './ShimmerRelated';
+import Shimmer from './Shimmer';
 const RelatedVideoContainer = () => {
     
 const [searchParams]=useSearchParams();
@@ -26,7 +26,7 @@ const [searchParams]=useSearchParams();
       }
     },[videoID,title,token])
     useInfiniteScroll(storeRelatedVideos,relatedRef,related)
-    let relatedVideos = Array(20).fill(0).map((_,index)=><ShimmerRelated key={index}></ShimmerRelated>)
+    let relatedVideos = Array(20).fill(0).map((_,index)=><Shimmer key={index}></Shimmer>)
     if(related){
       const relatedList = Object.values(related);
       relatedVideos = relatedList.map((video,index)=><RelatedCard data={video} key={video?.etag} ref={index===relatedList.length-4?relatedRef:null}></RelatedCard>)

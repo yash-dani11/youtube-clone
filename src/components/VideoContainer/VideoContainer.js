@@ -4,6 +4,7 @@ import VideoCard from './VideoCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPopularVideos } from '../../redux/videoSlice';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
+import Shimmer from './Shimmer';
 const VideoContainer = () => {
     const videosList = useSelector(store=>store.videos?.videos);
     const videos = videosList?.all;
@@ -16,12 +17,10 @@ const VideoContainer = () => {
         dispatch(addPopularVideos(data));
     };
     useInfiniteScroll(storePopularVideos,cardRef,videos);
-    if(!allVideos.length){
-      return;
-    }
-    const cards = allVideos.map((video,index)=><VideoCard key={video.id} details={video} ref={index===allVideos.length-4?cardRef:null}></VideoCard>)
+    const cards = allVideos?.map((video,index)=><VideoCard key={video.id} details={video} ref={index===allVideos.length-4?cardRef:null}></VideoCard>)
+    const shimmerList = Array(20).fill(0).map((_,index)=><Shimmer key={index}></Shimmer>) 
   return (
-    <div className='flex flex-wrap w-full pt-20'>{cards}</div>
+    <div className='flex flex-wrap w-full pt-20'>{cards?.length?cards:shimmerList}</div>
   )
 }
 

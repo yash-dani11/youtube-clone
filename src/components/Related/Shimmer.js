@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ShimmerRelated = () => {
+const Shimmer = () => {
   return (
     <div className='flex mb-8 justify-center'>
     <div className='w-40 h-24'>
@@ -15,4 +15,4 @@ const ShimmerRelated = () => {
   )
 }
 
-export default ShimmerRelated
+export default Shimmer

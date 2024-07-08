@@ -10,7 +10,7 @@ const useInfiniteScroll = (fetchFunction,elementRef,data) => {
     })
   }
     useEffect(()=>{
-        if(!data ||!Object.values(data).length){
+        if(!data ||Object.values(data).length<10){
           fetchFunction();
           return;
         }
