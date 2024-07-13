@@ -1,11 +1,15 @@
 export const VIDEO_CATEGORIES = [
   "All",
+  "Videos",
   "Gaming",
   "Music",
-  "Cooking",
+  "Shorts",
+  "Live",
+  "Unwatched",
+  "Recently Uploaded",
+  "Trailers",
+  "Sports",
   "Cricket",
-  "Soccer",
-  "Basketball",
 ];
 
 export const POPULAR_VIDEOS_ENDPOINT =
