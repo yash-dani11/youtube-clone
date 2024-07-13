@@ -2,7 +2,7 @@ import React, { useCallback,useRef } from 'react'
 import RelatedCard from './RelatedCard'
 import { useDispatch, useSelector } from 'react-redux'
 import { useSearchParams } from 'react-router-dom';
-import fetchRelatedVideos from './fetchRelatedVideos';
+import searchVideos from '../../utils/searchVideos';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import { addRelatedVideos } from '../../redux/videoSlice';
 import Shimmer from './Shimmer';
@@ -19,8 +19,8 @@ const [searchParams]=useSearchParams();
     const token = videos?.token; 
     const storeRelatedVideos = useCallback(async()=>{
       try {
-        const data = await fetchRelatedVideos(videoID,queryString,token);
-        dispatch(addRelatedVideos(data));
+        const data = await searchVideos(queryString,token);
+        dispatch(addRelatedVideos({id:videoID,...data}));
       } catch (error) {
         console.log("An error occured.",error);
       }

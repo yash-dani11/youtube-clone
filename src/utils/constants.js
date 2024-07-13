@@ -15,7 +15,7 @@ export const CHANNEL_ENDPOINT = `https://www.googleapis.com/youtube/v3/channels?
 
 export const COMMENTS_ENDPOINT = `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
 
-export const RELATED_ENDPOINT = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&regionCode=US&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`;
+export const SEARCH_ENDPOINT = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&regionCode=US&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`;
 
 export const API_OPTIONS = {method: 'GET',
 headers: {
@@ -27,3 +27,5 @@ export const VIDEO_ENDPOINT = `https://youtube.googleapis.com/youtube/v3/videos?
 export const EMBED_VIDEO_ENDPOINT = "https://www.youtube.com/embed/";
 
 export const WHATSAPP_SHARE_ENDPOINT = "https://api.whatsapp.com/send?text=";
+
+export const AUTO_COMPLETE_API = "http://suggestqueries.google.com/complete/search?client=youtube&ds=yt&q=";

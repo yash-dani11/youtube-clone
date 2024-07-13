@@ -21,6 +21,7 @@ const Player = () => {
     if (videoInfo?.snippet?.title) {
       document.title = videoInfo?.snippet?.title;
     }
+    window.scrollTo({top:0});
   }, [videoInfo?.snippet?.title]);
 
   return (

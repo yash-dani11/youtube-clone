@@ -5,6 +5,7 @@ import Homepage from "./components/Homepage";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 const Player = lazy(()=>import("./components/Player"));
+const Search  =lazy(()=>import("./components/SearchPage/Search"));
 const appRouter = createBrowserRouter([{
   path:"/",
   element:<Body></Body>,
@@ -15,7 +16,10 @@ const appRouter = createBrowserRouter([{
   {
     path:"/watch/",
     element:<Suspense><Player></Player></Suspense>
-  }
+  },
+  {path:"/results",
+  element:<Suspense><Search></Search></Suspense>
+}
 ]
 }])
 
