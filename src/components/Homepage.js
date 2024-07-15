@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 const Homepage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    document.title = "Youtube";
+    document.title = "YouTube";
     dispatch(viewSideBar());
     return () => {
       dispatch(collapseSideBar());
