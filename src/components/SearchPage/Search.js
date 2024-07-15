@@ -14,11 +14,14 @@ const Search = () => {
   const sidebarVisible = useSelector((state) => state.sidebar?.view);
   useEffect(() => {
     document.title = `${decodeURIComponent(searchString)} - Youtube`;
+    
+  }, [searchString]);
+  useEffect(()=>{
     dispatch(viewSideBar());
     return () => {
       dispatch(collapseSideBar());
     };
-  }, [searchString]);
+  })
   const marginLeft = sidebarVisible ? "sm:ml-64" : "mx-6";
   return (
     <div className={marginLeft}>

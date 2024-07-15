@@ -9,7 +9,7 @@ import AVATAR from "../assets/avatar.jpg";
 import fetchJsonp from "fetch-jsonp";
 import { AUTO_COMPLETE_API } from "../utils/constants";
 import AutoComplete from "./AutoComplete";
-import { setSearchValue } from "../redux/searchSlice";
+import { cacheKeyWords, setSearchValue } from "../redux/searchSlice";
 const Header = () => {
     const dispatch = useDispatch();
     const inputRef = useRef();
@@ -17,23 +17,31 @@ const Header = () => {
         dispatch(toggleSideBar());
     }
     const navigate = useNavigate();
+    const suggestionList = useSelector(state=>state.search?.autoSuggest);
     const searchString = useSelector(state=>state.search?.searchBarValue);
     const [suggestions,setSuggestions] = useState([]);
     const [isInFocus,setIsInFocus] = useState(false);
     const handleSearch = async (query)=>{
       if(query){
         try {
-          const response = await fetchJsonp(`${AUTO_COMPLETE_API}${query}`)
-          const results = await response.json();
-          setSuggestions(results[1].slice(0,10));
+          if(suggestionList[query]){
+            setSuggestions(suggestionList[query]);
+          }else{
+            const response = await fetchJsonp(`${AUTO_COMPLETE_API}${query}`)
+            const results = await response.json();
+            const newSuggestions = results?.[1]?.slice(0,10);
+            dispatch(cacheKeyWords({keyword:query,results:newSuggestions}));
+            setSuggestions(newSuggestions);
+          }
         } catch (error) {
-          console.log("Unable to get Suggestions");
+          console.log("Unable to get Suggestions",error);
         }
         
       }
       
     }
     useEffect(()=>{ 
+
       const timer = setTimeout(handleSearch,400,searchString);
       return ()=>{
         clearTimeout(timer);

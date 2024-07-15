@@ -6,6 +6,7 @@ const searchSlice = createSlice({
     searchString: "",
     searchBarValue: "",
     searchResults: {},
+    autoSuggest:{}
   },
   reducers: {
     setQuery: (state, action) => {
@@ -28,8 +29,12 @@ const searchSlice = createSlice({
       });
       state.searchResults[id].token = nextPageToken;
     },
+    cacheKeyWords:(state,action) =>{
+      const {keyword,results} = action.payload;
+      state.autoSuggest[keyword] = results;
+    }
   },
 });
 
-export const { setQuery, setSearchValue, setSearchResults } = searchSlice.actions;
+export const { setQuery, setSearchValue, setSearchResults,cacheKeyWords } = searchSlice.actions;
 export default searchSlice.reducer;
